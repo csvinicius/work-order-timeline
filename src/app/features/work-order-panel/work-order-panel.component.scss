@@ -1,0 +1,402 @@
+.panel-container {
+  position: fixed;
+  top: 0;
+  right: 0;
+  width: 420px;
+  height: 100vh;
+  background: white;
+  box-shadow: -4px 0 20px rgba(0, 0, 0, 0.1);
+  z-index: 1000;
+  display: flex;
+  flex-direction: column;
+  animation: slideIn 0.25s cubic-bezier(0.4, 0, 0.2, 1);
+  font-family: "Circular-Std", -apple-system, BlinkMacSystemFont, "Segoe UI", sans-serif;
+
+  @keyframes slideIn {
+    from {
+      transform: translateX(100%);
+    }
+    to {
+      transform: translateX(0);
+    }
+  }
+}
+
+.panel-header {
+  display: flex;
+  justify-content: space-between;
+  align-items: flex-start;
+  padding: 28px 28px 24px;
+  border-bottom: 1px solid #e8e8e8;
+
+  .header-content {
+    flex: 1;
+
+    h2 {
+      margin: 0 0 4px 0;
+      font-size: 22px;
+      font-weight: 500;
+      color: #1a1a1a;
+      letter-spacing: -0.3px;
+    }
+
+    .header-subtitle {
+      margin: 0;
+      font-size: 13px;
+      font-weight: 400;
+      color: #999;
+    }
+  }
+
+  .header-actions {
+    display: flex;
+    gap: 12px;
+
+    .btn {
+      padding: 10px 20px;
+      border: none;
+      border-radius: 8px;
+      font-size: 14px;
+      font-weight: 500;
+      cursor: pointer;
+      transition: all 0.2s;
+      font-family: inherit;
+      letter-spacing: 0;
+      white-space: nowrap;
+
+      &.btn-secondary {
+        background: white;
+        color: #999;
+        border: 1px solid #e0e0e0;
+
+        &:hover {
+          background: #f8f9fa;
+          border-color: #d0d0d0;
+          color: #666;
+        }
+      }
+
+      &.btn-primary {
+        background: #5B5FEF;
+        color: white;
+
+        &:hover {
+          background: #4a4ed8;
+        }
+
+        &:active {
+          background: #3a3ec0;
+        }
+      }
+    }
+  }
+}
+
+.panel-form {
+  flex: 1;
+  overflow-y: auto;
+  padding: 24px 28px 28px;
+
+  .form-group {
+    margin-bottom: 20px;
+
+    label {
+      display: block;
+      margin-bottom: 10px;
+      font-size: 13px;
+      font-weight: 400;
+      color: #999;
+      letter-spacing: 0;
+    }
+
+    .form-control {
+      width: 100%;
+      padding: 12px 14px;
+      border: 1px solid #e0e0e0;
+      border-radius: 8px;
+      font-size: 14px;
+      font-family: inherit;
+      color: #1a1a1a;
+      transition: all 0.2s;
+
+      &:hover {
+        border-color: #d0d0d0;
+      }
+
+      &:focus {
+        outline: none;
+        border-color: #5B5FEF;
+        box-shadow: 0 0 0 3px rgba(91, 95, 239, 0.1);
+      }
+
+      &.error {
+        border-color: #dc3545;
+
+        &:focus {
+          box-shadow: 0 0 0 3px rgba(220, 53, 69, 0.08);
+        }
+      }
+
+      &::placeholder {
+        color: #bbb;
+      }
+    }
+
+    ::ng-deep ng-select {
+      &.ng-select {
+        .ng-select-container {
+          border: 1px solid #e0e0e0;
+          border-radius: 8px;
+          min-height: 48px;
+          transition: all 0.2s;
+
+          &:hover {
+            border-color: #d0d0d0;
+          }
+
+          .ng-value-container {
+            padding: 0 14px;
+
+            .ng-placeholder {
+              color: #bbb;
+            }
+
+            .ng-value {
+              color: #1a1a1a;
+              font-weight: 400;
+            }
+          }
+        }
+
+        &.ng-select-focused {
+          .ng-select-container {
+            border-color: #5B5FEF;
+            box-shadow: 0 0 0 3px rgba(91, 95, 239, 0.1);
+          }
+        }
+
+        &.error {
+          .ng-select-container {
+            border-color: #dc3545;
+
+            &:focus,
+            &.ng-select-focused {
+              box-shadow: 0 0 0 3px rgba(220, 53, 69, 0.08);
+            }
+          }
+        }
+
+        .ng-dropdown-panel {
+          border: 1px solid #e0e0e0;
+          border-radius: 8px;
+          box-shadow: 0 4px 12px rgba(0, 0, 0, 0.1);
+          margin-top: 6px;
+
+          .ng-dropdown-panel-items {
+            .ng-option {
+              padding: 12px 14px;
+              font-size: 14px;
+              font-weight: 400;
+              color: #1a1a1a;
+              transition: background 0.15s;
+
+              &.ng-option-marked {
+                background-color: #f8f9fa;
+              }
+
+              &.ng-option-selected {
+                background-color: #5B9FD8;
+                color: white;
+              }
+            }
+          }
+        }
+
+        .ng-arrow-wrapper {
+          padding-right: 14px;
+
+          .ng-arrow {
+            border-color: #999 transparent transparent;
+            border-width: 6px 5px 0;
+          }
+        }
+
+        &.ng-select-opened {
+          .ng-arrow-wrapper .ng-arrow {
+            border-color: transparent transparent #999;
+            border-width: 0 5px 6px;
+          }
+        }
+      }
+    }
+
+    .input-group {
+      display: flex;
+      gap: 0;
+      position: relative;
+
+      .form-control {
+        flex: 1;
+        border-top-right-radius: 0;
+        border-bottom-right-radius: 0;
+        border-right: none;
+      }
+
+      .btn {
+        border-top-left-radius: 0;
+        border-bottom-left-radius: 0;
+        padding: 12px 16px;
+        border: 1px solid #e0e0e0;
+        background: #fafafa;
+        cursor: pointer;
+        transition: all 0.2s;
+        font-size: 18px;
+        flex-shrink: 0;
+
+        &.calendar-btn {
+          border-left: 1px solid #e0e0e0;
+        }
+
+        &:hover {
+          background: #f0f0f0;
+        }
+
+        &:focus {
+          outline: none;
+          border-color: #5B5FEF;
+          box-shadow: 0 0 0 3px rgba(91, 95, 239, 0.1);
+        }
+      }
+
+      ::ng-deep {
+        ngb-datepicker {
+          position: absolute;
+          top: calc(100% + 8px);
+          left: 0;
+          z-index: 1000;
+          background: white;
+          border: 1px solid #e0e0e0;
+          border-radius: 8px;
+          box-shadow: 0 4px 12px rgba(0, 0, 0, 0.1);
+          padding: 12px;
+
+          .ngb-dp-header {
+            padding-bottom: 8px;
+            border-bottom: 1px solid #f0f0f0;
+            margin-bottom: 8px;
+          }
+
+          .ngb-dp-weekdays {
+            border-bottom: none;
+            padding-bottom: 4px;
+          }
+
+          .ngb-dp-weekday {
+            color: #999;
+            font-size: 12px;
+            font-weight: 500;
+          }
+
+          .ngb-dp-day {
+            .btn-light {
+              border: none;
+              background: transparent;
+              color: #1a1a1a;
+              font-size: 13px;
+              width: 36px;
+              height: 36px;
+              border-radius: 6px;
+
+              &:hover {
+                background: #f5f5f5;
+              }
+
+              &.bg-primary {
+                background: #5B5FEF !important;
+                color: white;
+              }
+            }
+          }
+
+          .ngb-dp-arrow-btn {
+            width: 32px;
+            height: 32px;
+            border-radius: 6px;
+            border: none;
+            background: transparent;
+
+            &:hover {
+              background: #f5f5f5;
+            }
+          }
+
+          select {
+            padding: 6px 12px;
+            border: 1px solid #e0e0e0;
+            border-radius: 6px;
+            font-size: 13px;
+            margin: 0 4px;
+
+            &:focus {
+              outline: none;
+              border-color: #5B5FEF;
+            }
+          }
+        }
+      }
+    }
+
+    .error-message {
+      display: block;
+      margin-top: 8px;
+      font-size: 12px;
+      font-weight: 500;
+      color: #dc3545;
+      letter-spacing: -0.1px;
+    }
+  }
+}
+
+.form-actions {
+  display: none;
+}
+
+/* RESPONSIVE */
+
+/* Tablet */
+@media (max-width: 1023px) {
+  .panel-container {
+    width: 360px;
+  }
+}
+
+/* Mobile */
+@media (max-width: 767px) {
+  .panel-container {
+    width: 100vw;
+    height: 100dvh;
+    left: 0;
+    right: 0;
+    top: 0;
+  }
+
+  .panel-header {
+    padding: 20px 20px 16px;
+    flex-direction: column;
+    gap: 16px;
+
+    .header-actions {
+      width: 100%;
+      justify-content: flex-end;
+
+      .btn {
+        padding: 10px 16px;
+        font-size: 13px;
+      }
+    }
+  }
+
+  .panel-form {
+    padding: 20px;
+  }
+}

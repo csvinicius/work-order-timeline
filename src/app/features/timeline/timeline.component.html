@@ -1,0 +1,117 @@
+<div class="timeline-container">
+  <div class="timeline-title-bar">
+    <div class="logo-container">
+      <img src="assets/naologic-logo.svg" alt="Naologic" class="logo" />
+    </div>
+    <h1>Work Orders</h1>
+  </div>
+
+  <div class="timeline">
+    <div class="left-panel">
+      <div class="header-spacer">
+        <div class="timescale-selector-left">
+          <label>Timescale</label>
+          <select
+            class="timescale-dropdown"
+            [value]="timescale()"
+            (change)="onTimescaleChange($any($event.target).value)"
+          >
+            @for (option of timescaleOptions; track option.value) {
+              <option [value]="option.value">
+                {{ option.label }}
+              </option>
+            }
+          </select>
+        </div>
+        <span class="header-label">Work Center</span>
+      </div>
+
+      @for (center of workCenters(); track trackByWorkCenter($index, center)) {
+        <div class="work-center">
+          {{ center.data.name }}
+        </div>
+      }
+    </div>
+
+    <div class="right-panel">
+      <app-timeline-header
+        [dates]="dates()"
+        [scale]="timescale()"
+        [cellWidth]="cellWidth()"
+      />
+
+      <div class="timeline-grid">
+        @for (center of workCenters(); track trackByWorkCenter($index, center)) {
+          <div class="timeline-row">
+            @for (date of dates(); track trackByDate($index, date)) {
+              <div
+                class="timeline-cell"
+                [style.width.px]="cellWidth()"
+                [class.today]="isToday(date)"
+                (click)="onCellClick(center.docId, date)"
+              >
+                @if (isToday(date)) {
+                  <div class="today-indicator"></div>
+                }
+              </div>
+            }
+
+            <div class="work-orders-container">
+              @for (
+                order of getOrdersForCenter(center.docId);
+                track trackByOrder($index, order)
+              ) {
+                <div
+                  class="work-order-bar"
+                  [ngStyle]="getOrderStyle(order)"
+                  [ngClass]="getStatusClass(order.data.status)"
+                >
+                  <span class="order-company-name">
+                    {{ order.data.name }}
+                  </span>
+
+                  <div class="order-right-content">
+                    <span class="order-status">
+                      {{ order.data.status }}
+                    </span>
+
+                    <div class="order-actions">
+                      <button 
+                        class="actions-btn" 
+                        type="button"
+                        (click)="toggleDropdown(order.docId, $event)"
+                      >
+                        ⋮
+                      </button>
+                      @if (isDropdownOpen(order.docId)) {
+                        <div class="actions-dropdown">
+                          <button (click)="onEditOrder(order)">Edit</button>
+                          <button (click)="onDeleteOrder(order.docId)">Delete</button>
+                        </div>
+                      }
+                    </div>
+                  </div>
+                </div>
+              }
+            </div>
+          </div>
+        }
+      </div>
+    </div>
+  </div>
+
+  @if (showPanel()) {
+    <app-work-order-panel
+      [mode]="panelMode()"
+      [initialData]="selectedOrder()"
+      [clickedDate]="clickedDate()"
+      (save)="onSaveOrder($event)"
+      (cancel)="onCancelPanel()"
+    />
+
+    <div
+      class="panel-overlay"
+      (click)="onCancelPanel()"
+    ></div>
+  }
+</div>

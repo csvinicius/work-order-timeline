@@ -1,0 +1,452 @@
+.timeline-container {
+  font-family: "Circular-Std", -apple-system, BlinkMacSystemFont, "Segoe UI", sans-serif;
+  height: 100vh;
+  display: flex;
+  flex-direction: column;
+  background: #fff;
+
+  // @upgrade: Add dark mode theme support with CSS variables
+  // @upgrade: Add loading skeleton states during data fetch
+  // @upgrade: Implement responsive mobile layout with collapsible left panel
+}
+
+.timeline-title-bar {
+  display: flex;
+  flex-direction: column;
+  gap: 65px;
+  padding: 20px 40px 24px;
+  background: white;
+  border-bottom: 1px solid #e8e8e8;
+
+  .logo-container {
+    display: flex;
+    align-items: center;
+
+    .logo {
+      height: 10px;
+      width: auto;
+    }
+  }
+
+  h1 {
+    margin: 0;
+    font-size: 32px;
+    font-weight: 400;
+    color: #1a1a1a;
+    letter-spacing: -0.5px;
+  }
+}
+
+.timeline {
+  display: flex;
+  flex: 1;
+  overflow: hidden;
+  background: white;
+
+  .left-panel {
+    width: 220px;
+    border-right: 1px solid #e8e8e8;
+    background: white;
+    flex-shrink: 0;
+    position: relative;
+
+    .header-spacer {
+      height: 56px;
+      border-bottom: 1px solid #e8e8e8;
+      background: #fafafa;
+      display: flex;
+      flex-direction: column;
+      justify-content: center;
+      padding: 8px 20px;
+      gap: 4px;
+
+      .header-label {
+        font-size: 13px;
+        font-weight: 400;
+        color: #999;
+      }
+
+      .timescale-selector-left {
+        display: flex;
+        align-items: center;
+        gap: 8px;
+
+        label {
+          font-size: 13px;
+          font-weight: 400;
+          color: #999;
+          margin: 0;
+        }
+
+        .timescale-dropdown {
+          padding: 4px 24px 4px 8px;
+          border: 1px solid #e0e0e0;
+          border-radius: 4px;
+          font-size: 13px;
+          font-weight: 400;
+          background: white;
+          color: #5B5FEF;
+          cursor: pointer;
+          appearance: none;
+          background-image: url("data:image/svg+xml,%3Csvg width='10' height='6' viewBox='0 0 10 6' fill='none' xmlns='http://www.w3.org/2000/svg'%3E%3Cpath d='M1 1L5 5L9 1' stroke='%235B5FEF' stroke-width='1.5' stroke-linecap='round' stroke-linejoin='round'/%3E%3C/svg%3E");
+          background-repeat: no-repeat;
+          background-position: right 8px center;
+          background-size: 10px;
+          transition: all 0.2s;
+
+          &:hover {
+            border-color: #5B5FEF;
+          }
+
+          &:focus {
+            outline: none;
+            border-color: #5B5FEF;
+            box-shadow: 0 0 0 3px rgba(91, 95, 239, 0.1);
+          }
+        }
+      }
+    }
+
+    .work-center {
+      height: 72px;
+      padding: 0 20px;
+      display: flex;
+      align-items: center;
+      font-size: 14px;
+      font-weight: 400;
+      color: #1a1a1a;
+      border-bottom: 1px solid #e8e8e8;
+      background: white;
+      transition: background 0.15s;
+      position: relative;
+    }
+  }
+
+  .right-panel {
+    flex: 1;
+    overflow-x: auto;
+    overflow-y: hidden;
+    position: relative;
+    background: white;
+  }
+}
+
+.timeline-grid {
+  position: relative;
+}
+
+.timeline-row {
+  height: 72px;
+  display: flex;
+  position: relative;
+  border-bottom: 1px solid #e8e8e8;
+  transition: background-color 0.15s;
+
+  &:hover {
+    background-color: #fafbfc;
+  }
+
+  .timeline-cell {
+    height: 100%;
+    border-right: 1px solid #f5f5f5;
+    position: relative;
+    cursor: pointer;
+    flex-shrink: 0;
+    transition: background 0.15s;
+
+    &:hover {
+      background-color: rgba(91, 95, 239, 0.03);
+    }
+
+    &.today {
+      background-color: rgba(91, 95, 239, 0.08);
+    }
+
+    .today-indicator {
+      position: absolute;
+      top: 0;
+      left: 0;
+      width: 2px;
+      height: 100%;
+      background: #5B5FEF;
+    }
+  }
+
+  .work-orders-container {
+    position: absolute;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 100%;
+    pointer-events: none;
+  }
+}
+
+.work-order-bar {
+  position: absolute;
+  top: 50%;
+  transform: translateY(-50%);
+  height: 36px;
+  border-radius: 4px;
+  padding: 0 10px;
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  gap: 12px;
+  pointer-events: auto;
+  cursor: pointer;
+  transition: all 0.15s ease;
+
+  // @upgrade: Add tooltip on hover showing full work order details (dates, duration, etc.)
+  // @upgrade: Implement smooth animations for create/edit/delete operations
+  // @upgrade: Add progress indicator bar for in-progress orders
+
+  &:hover {
+    filter: brightness(0.96);
+    transform: translateY(-50%);
+    z-index: 1;
+  }
+
+  .order-company-name {
+    font-size: 13px;
+    font-weight: 400;
+    color: #1a1a1a;
+    white-space: nowrap;
+    overflow: hidden;
+    text-overflow: ellipsis;
+    flex: 1;
+    min-width: 0;
+  }
+
+  .order-right-content {
+    display: flex;
+    align-items: center;
+    gap: 8px;
+    flex-shrink: 0;
+  }
+
+  .order-status {
+    padding: 4px 12px;
+    border-radius: 4px;
+    font-size: 12px;
+    font-weight: 500;
+    text-transform: capitalize;
+    white-space: nowrap;
+    letter-spacing: 0;
+  }
+
+  .order-actions {
+    position: relative;
+    margin-left: auto;
+
+    .actions-btn {
+      width: 20px;
+      height: 20px;
+      border: none;
+      background: transparent;
+      color: #999;
+      border-radius: 3px;
+      cursor: pointer;
+      font-size: 16px;
+      line-height: 1;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      transition: all 0.2s;
+      font-weight: 600;
+
+      &:hover {
+        background: rgba(0, 0, 0, 0.05);
+        color: #666;
+      }
+    }
+
+    .actions-dropdown {
+      position: absolute;
+      top: calc(100% + 4px);
+      right: 0;
+      background: white;
+      border: 1px solid #e0e0e0;
+      border-radius: 4px;
+      box-shadow: 0 4px 16px rgba(0, 0, 0, 0.12);
+      min-width: 120px;
+      z-index: 100;
+      overflow: hidden;
+
+      button {
+        width: 100%;
+        padding: 10px 16px;
+        border: none;
+        background: none;
+        text-align: left;
+        font-size: 13px;
+        font-weight: 400;
+        color: #1a1a1a;
+        cursor: pointer;
+        transition: background 0.15s;
+
+        &:hover {
+          background: #f5f5f5;
+        }
+
+        &:not(:last-child) {
+          border-bottom: 1px solid #f0f0f0;
+        }
+      }
+    }
+  }
+
+  // Status styles sem gradiente
+  &.status-open {
+    background: #E8F5FD;
+    
+    .order-status {
+      background: #5B9FD8;
+      color: white;
+    }
+  }
+
+  &.status-in-progress {
+    background: #EBE8FD;
+    
+    .order-status {
+      background: #5B5FEF;
+      color: white;
+    }
+  }
+
+  &.status-complete {
+    background: #E8F8E8;
+    
+    .order-status {
+      background: #5CB85C;
+      color: white;
+    }
+  }
+
+  &.status-blocked {
+    background: #FFF4E5;
+    
+    .order-status {
+      background: #F0AD4E;
+      color: white;
+    }
+  }
+}
+
+.panel-overlay {
+  position: fixed;
+  top: 0;
+  left: 0;
+  right: 0;
+  bottom: 0;
+  background: rgba(0, 0, 0, 0.3);
+  animation: fadeIn 0.2s ease-out;
+}
+
+@keyframes fadeIn {
+  from {
+    opacity: 0;
+  }
+  to {
+    opacity: 1;
+  }
+}
+
+/* RESPONSIVE */
+
+/* Tablet */
+@media (max-width: 1023px) {
+  .timeline-container {
+    height: auto;
+    min-height: 100vh;
+  }
+
+  .timeline-title-bar {
+    padding: 20px 24px;
+    gap: 40px;
+
+    h1 {
+      font-size: 26px;
+    }
+  }
+
+  .timeline {
+    .left-panel {
+      width: 180px;
+    }
+  }
+}
+
+/* Mobile */
+@media (max-width: 767px) {
+  .timeline-title-bar {
+    padding: 16px 20px;
+    gap: 20px;
+
+    h1 {
+      font-size: 22px;
+    }
+  }
+
+  .timeline {
+    flex-direction: row;
+    overflow: hidden;
+
+    .left-panel {
+      width: 160px;
+      flex-shrink: 0;
+      border-right: 1px solid #e8e8e8;
+
+      .header-spacer {
+        padding: 10px 12px;
+        height: auto;
+
+        .header-label {
+          font-size: 12px;
+        }
+
+        .timescale-selector-left {
+          label {
+            font-size: 12px;
+          }
+
+          .timescale-dropdown {
+            font-size: 12px;
+          }
+        }
+      }
+
+      .work-center {
+        height: 56px;
+        padding: 0 12px;
+        font-size: 13px;
+      }
+    }
+
+    .right-panel {
+      flex: 1;
+      overflow-x: auto;
+      overflow-y: hidden;
+      -webkit-overflow-scrolling: touch;
+    }
+  }
+
+  .timeline-row {
+    height: 56px;
+  }
+
+  .work-order-bar {
+    height: 30px;
+    padding: 0 8px;
+
+    .order-company-name {
+      font-size: 12px;
+    }
+
+    .order-status {
+      font-size: 11px;
+      padding: 3px 6px;
+    }
+  }
+}
