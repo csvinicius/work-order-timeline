@@ -1,0 +1,42 @@
+.timeline-header {
+  display: flex;
+  height: 56px;
+  border-bottom: 1px solid #e8e8e8;
+  background: #fafafa;
+
+  .header-cell {
+    width: var(--cell-width);
+    height: 100%;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    border-right: 1px solid #f5f5f5;
+    font-size: 13px;
+    font-weight: 400;
+    color: #999;
+    flex-shrink: 0;
+    position: relative;
+
+    span {
+      letter-spacing: 0;
+    }
+  }
+}
+
+/* RESPONSIVE */
+
+/* Tablet */
+@media (max-width: 1023px) {
+  .header-cell {
+    font-size: 12px;
+  }
+}
+
+/* Mobile */
+@media (max-width: 767px) {
+  .header-cell {
+    height: 48px;
+    font-size: 11px;
+    padding: 0 4px;
+  }
+}

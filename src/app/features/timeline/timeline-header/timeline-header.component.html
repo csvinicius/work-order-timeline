@@ -1,0 +1,20 @@
+<div
+  class="timeline-header"
+  [style.--cell-width.px]="cellWidth"
+>
+  @for (date of dates; track date.getTime()) {
+    <div class="header-cell">
+      @switch (scale) {
+        @case ('day') {
+          <span>{{ date | date: 'dd MMM' }}</span>
+        }
+        @case ('week') {
+          <span>W{{ getWeekNumber(date) }}</span>
+        }
+        @case ('month') {
+          <span>{{ date | date: 'MMM yyyy' }}</span>
+        }
+      }
+    </div>
+  }
+</div>

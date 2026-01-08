@@ -1,0 +1,110 @@
+<div class="panel-container">
+  <div class="panel-header">
+    <div class="header-content">
+      <h2>Work Order Details</h2>
+      <p class="header-subtitle">Specify the dates, name and status for this order</p>
+    </div>
+    <div class="header-actions">
+      <button type="button" class="btn btn-secondary" (click)="onCancel()">
+        Cancel
+      </button>
+      <button type="submit" class="btn btn-primary" (click)="onSubmit()">
+        {{ mode === 'create' ? 'Create' : 'Save' }}
+      </button>
+    </div>
+  </div>
+
+  <form [formGroup]="form" class="panel-form">
+    <div class="form-group">
+      <label for="name">Work Order Name</label>
+      <input
+        id="name"
+        type="text"
+        formControlName="name"
+        class="form-control"
+        [class.error]="hasError('name')"
+        placeholder="Enter work order name"
+      />
+      @if (hasError('name')) {
+        <span class="error-message">
+          Work order name is required
+        </span>
+      }
+    </div>
+
+    <div class="form-group">
+      <label for="status">Status *</label>
+      <ng-select
+        id="status"
+        formControlName="status"
+        [items]="statusOptions"
+        bindLabel="label"
+        bindValue="value"
+        [clearable]="false"
+        [searchable]="false"
+        placeholder="Select status"
+        [class.error]="hasError('status')"
+      >
+      </ng-select>
+      @if (hasError('status')) {
+        <span class="error-message">
+          Status is required
+        </span>
+      }
+    </div>
+
+    <div class="form-group">
+      <label for="endDate">End date *</label>
+      <div class="input-group">
+        <input
+          id="endDate"
+          class="form-control"
+          placeholder="dd.mm.yyyy"
+          formControlName="endDate"
+          ngbDatepicker
+          #endDatePicker="ngbDatepicker"
+          [class.error]="hasError('endDate')"
+        />
+        <button
+          class="btn btn-outline-secondary calendar-btn"
+          type="button"
+          (click)="endDatePicker.toggle()"
+        >
+          📅
+        </button>
+      </div>
+      @if (hasError('endDate')) {
+        <span class="error-message">
+          End date is required
+        </span>
+      }
+    </div>
+
+    <div class="form-group">
+      <label for="startDate">Start Date *</label>
+      <div class="input-group">
+        <input
+          id="startDate"
+          class="form-control"
+          placeholder="dd.mm.yyyy"
+          formControlName="startDate"
+          ngbDatepicker
+          #startDatePicker="ngbDatepicker"
+          [class.error]="hasError('startDate')"
+        />
+        <button
+          class="btn btn-outline-secondary calendar-btn"
+          type="button"
+          (click)="startDatePicker.toggle()"
+        >
+          📅
+        </button>
+      </div>
+      @if (hasError('startDate')) {
+        <span class="error-message">
+          Start date is required
+        </span>
+      }
+    </div>
+  </form>
+</div>
