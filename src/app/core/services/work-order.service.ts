@@ -13,7 +13,7 @@ const DEFAULT_WORK_ORDERS: WorkOrderDocument[] = [
       workCenterId: 'wc-1',
       status: 'complete',
       startDate: '2025-12-28',
-      endDate: '2026-01-04',
+      endDate: '2026-01-01',
     },
   },
   {
@@ -35,7 +35,7 @@ const DEFAULT_WORK_ORDERS: WorkOrderDocument[] = [
       workCenterId: 'wc-2',
       status: 'open',
       startDate: '2026-01-02',
-      endDate: '2026-01-10',
+      endDate: '2026-01-05',
     },
   },
   {
@@ -56,8 +56,8 @@ const DEFAULT_WORK_ORDERS: WorkOrderDocument[] = [
       name: 'Order Epsilon',
       workCenterId: 'wc-2',
       status: 'in-progress',
-      startDate: '2026-01-12',
-      endDate: '2026-01-18',
+      startDate: '2026-01-18',
+      endDate: '2026-01-25',
     },
   },
   {
@@ -78,7 +78,7 @@ const DEFAULT_WORK_ORDERS: WorkOrderDocument[] = [
       name: 'Order Eta',
       workCenterId: 'wc-1',
       status: 'open',
-      startDate: '2026-01-14',
+      startDate: '2026-01-20',
       endDate: '2026-01-22',
     },
   },
